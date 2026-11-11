@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estudihambre UANL</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <span>🍟 ESTUDIHAMBRE <span class="amarillo">UANL</span></span>
+      <div id="zonaSesion"></div>
+    </nav>
+    <div class="hero">
+      <h1>¿Bueno, bonito<br>y barato… o<br><span>pura hambre?</span></h1>
+      <p>Encuentra las cafeterías de tu facultad, revisa las opiniones y califica sin miedo. Porque reprobar en clase ya es suficiente. 💀</p>
+      <a class="boton" href="#cafeterias">🍔 Explorar cafeterías</a>
+      <a class="boton" href="#agregar">✍️ Escribir reseña</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="estadisticas">
+      <div class="estadistica"><strong id="totalFacultades">0</strong><span>Facultades incluidas</span></div>
+      <div class="estadistica"><strong id="totalCafeterias">0</strong><span>Cafeterías registradas</span></div>
+      <div class="estadistica"><strong id="totalResenas">0</strong><span>Reseñas publicadas</span></div>
+    </section>
+
+    <section id="cafeterias">
+      <h2>El hambre no espera 🍽️</h2>
+      <p>Busca una cafetería o selecciona tu facultad.</p>
+      <div class="filtros">
+        <input id="busqueda" type="search" placeholder="Buscar cafetería...">
+        <select id="filtroFacultad"></select>
+      </div>
+      <div class="facultades" id="botonesFacultades"></div>
+      <div class="cafeterias" id="listaCafeterias"></div>
+    </section>
+
+    <section class="seccion-formulario" id="agregar">
+      <div class="mensaje">
+        <h2>Tu facultad, tu reseña ⭐</h2>
+        <p>Busca tu facultad, elige la cafetería y comparte cómo te fue. Necesitas una cuenta con tu matrícula.</p>
+        <p>¿Te arrepentiste de una opinión? Puedes eliminar tu reseña desde la sección de reseñas. 🍟</p>
+      </div>
+      <form class="form-calificacion" id="formCalificacion">
+        <h2>Califica tu experiencia</h2>
+        <div class="campo">
+          <label for="facultadResena">Facultad:</label>
+          <select id="facultadResena" name="facultad" required></select>
+        </div>
+        <div class="campo">
+          <label for="cafeteriaResena">Cafetería:</label>
+          <select id="cafeteriaResena" name="cafeteriaId" required disabled>
+            <option value="">Primero selecciona una facultad</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label for="saborResena">Sabor de los alimentos:</label>
+          <select id="saborResena" name="sabor" class="rating" required></select>
+        </div>
+        <div class="campo">
+          <label for="precioResena">Precio:</label>
+          <select id="precioResena" name="precio" class="rating" required></select>
+        </div>
+        <div class="campo">
+          <label for="limpiezaResena">Limpieza:</label>
+          <select id="limpiezaResena" name="limpieza" class="rating" required></select>
+        </div>
+        <div class="campo">
+          <label for="atencionResena">Atención al cliente:</label>
+          <select id="atencionResena" name="atencion" class="rating" required></select>
+        </div>
+        <div class="campo">
+          <label for="comentarioResena">Comentario (opcional):</label>
+          <textarea id="comentarioResena" name="comentario" maxlength="500" placeholder="Comparte tu experiencia..."></textarea>
+        </div>
+        <div class="campo">
+          <label for="autorResena">Cómo quieres aparecer (opcional):</label>
+          <input id="autorResena" name="autor" maxlength="35" placeholder="Hambre anónima">
+        </div>
+        <button class="boton" type="submit">Enviar calificación</button>
+        <p class="secundario">Tu reseña se enviará para revisión antes de publicarse.</p>
+      </form>
+    </section>
+
+    <section class="resenas" id="resenas">
+      <h2>El tribunal del antojo ⭐</h2>
+      <p id="subtituloResenas">Las opiniones más recientes de los estudiantes.</p>
+      <button class="boton" type="button" id="btnTodas" hidden>Ver todas las reseñas</button>
+      <button class="boton" type="button" id="btnDeshacer">↩️ Deshacer última eliminación (<span id="totalPila">0</span>)</button>
+      <div class="lista-resenas" id="listaResenas"></div>
+
+      <div class="panel-cola" id="panelCola" hidden>
+        <h2 style="font-size:24px">📥 Reseñas por revisar</h2>
+        <p><strong>Por revisar:</strong> <span id="totalCola">0</span></p>
+        <div id="listaPendientes"></div>
+        <button class="boton" type="button" id="btnPublicar">✅ Publicar próxima reseña</button>
+        <button class="boton" type="button" id="btnDescartar">❌ Descartar próxima</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <strong>🍟 Estudihambre UANL</strong>
+    <p>Tu hambre, tu opinión, tu voto.</p>
+    <p>Proyecto estudiantil independiente; no es un sitio oficial de la UANL.</p>
+  </footer>
+
+  <dialog id="dialogoAuth">
+    <form id="formAuth">
+      <h2 id="tituloAuth">Iniciar sesión</h2>
+      <div class="campo">
+        <label for="authMatricula">Matrícula:</label>
+        <input id="authMatricula" name="matricula" inputmode="numeric" pattern="\d{5,9}" title="Solo números (5 a 9 dígitos)" required>
+      </div>
+      <div class="campo solo-registro">
+        <label for="authNombre">Nombre:</label>
+        <input id="authNombre" name="nombre" maxlength="45">
+      </div>
+      <div class="campo">
+        <label for="authFacultad">Facultad:</label>
+        <select id="authFacultad" name="facultad" required></select>
+      </div>
+      <div class="campo solo-login">
+        <label for="authClave">Clave de administrador (solo admins):</label>
+        <input id="authClave" name="clave" type="password" autocomplete="off">
+      </div>
+      <p class="error" id="errorAuth"></p>
+      <button class="boton" type="submit">Continuar</button>
+      <button class="boton gris" type="button" id="cancelarAuth">Cancelar</button>
+      <p><button class="enlace" type="button" id="cambiarModo"></button></p>
+    </form>
+  </dialog>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
