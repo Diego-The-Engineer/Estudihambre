@@ -20,7 +20,7 @@ export function initFormulario(alEnviar) {
       await api.crearResena(Object.fromEntries(new FormData(e.target)));
       e.target.reset();
       llenarCafeterias();
-      alert("¡Gracias! Tu reseña se enviará para revisión antes de publicarse.");
+      alert("¡Gracias! Tu reseña se ha publicado.");
       alEnviar();
     } catch (err) {
       alert(err.message);

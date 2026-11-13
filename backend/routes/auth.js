@@ -22,7 +22,7 @@ router.post("/registro", async (req, res) => {
   try {
     const { rows } = await pool.query(
       `INSERT INTO estudiante (matricula, id_facultad, nombre)
-       VALUES ($1, $2, $3) RETURNING matricula, nombre, es_admin`,
+       VALUES ($1, $2, $3) RETURNING matricula, nombre`,
       [matricula, fac.rows[0].id_facultad, nombre.trim().slice(0, 45)]
     );
     res.status(201).json(sesion(rows[0]));
@@ -36,7 +36,7 @@ router.post("/registro", async (req, res) => {
 router.post("/login", async (req, res) => {
   const { matricula, facultad } = req.body;
   const { rows } = await pool.query(
-    `SELECT e.matricula, e.nombre, e.es_admin
+    `SELECT e.matricula, e.nombre
      FROM estudiante e JOIN facultad f ON f.id_facultad = e.id_facultad
      WHERE e.matricula = $1 AND f.codigo = $2`,
     [Number(matricula) || 0, String(facultad || "")]
