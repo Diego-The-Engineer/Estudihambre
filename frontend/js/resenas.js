@@ -49,7 +49,7 @@ const tarjeta = r => `
     <p class="secundario">${detalle(r)}</p>
     ${r.comentario ? `<p>${escapar(r.comentario)}</p>` : ""}
     <p class="secundario">${escapar(r.autor)} · ${r.fecha}</p>
-    ${r.propia || usuarioActual()?.esAdmin ? `<button class="boton" data-eliminar="${r.id}">🗑️ Eliminar</button>` : ""}
+    ${r.propia  ? `<button class="boton" data-eliminar="${r.id}">🗑️ Eliminar</button>` : ""}
   </article>`;
 
 export async function cargarResenas() {
@@ -64,7 +64,6 @@ export async function cargarResenas() {
   $("totalPila").textContent = pilaEliminadas.length;
 }
 
-// Panel de moderación: solo para administradores
 export async function cargarCola() {
   const admin = usuarioActual()?.esAdmin;
   $("panelCola").hidden = !admin;

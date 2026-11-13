@@ -10,7 +10,7 @@ const {
 
 const profanityDataset = new DataSet().addAll(englishDataset);
 
-// Palabras en español
+// no enseñar porque es contenido muy fuerte
 const spanishWords = [
     "chingada",
     "chingado",

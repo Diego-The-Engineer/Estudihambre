@@ -13,7 +13,7 @@ router.get("/cafeterias", async (_req, res) => {
            c.nombre,
            f.codigo AS facultad,
            ROUND(AVG((r.rating_sabor + r.rating_precio + r.rating_limpieza + r.rating_atencion) / 4.0), 1)::float AS promedio,
-           COUNT(r.id_resena)::int AS "Resenas"
+           COUNT(r.id_resena)::int AS "totalResenas"
     FROM cafeteria c
     JOIN facultad f ON f.id_facultad = c.id_facultad
     LEFT JOIN resena r ON r.id_cafeteria = c.id_cafeteria AND r.estado = 'publicada'
