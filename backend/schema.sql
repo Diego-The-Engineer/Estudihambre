@@ -7,8 +7,7 @@ CREATE TABLE facultad (
 CREATE TABLE estudiante (
   matricula     INT PRIMARY KEY,
   id_facultad   INT NOT NULL REFERENCES facultad(id_facultad),
-  nombre        VARCHAR(45) NOT NULL,
-  es_admin      BOOLEAN NOT NULL DEFAULT FALSE
+  nombre        VARCHAR(45) NOT NULL
 );
 
 CREATE TABLE cafeteria (
@@ -17,7 +16,7 @@ CREATE TABLE cafeteria (
   id_facultad  INT NOT NULL REFERENCES facultad(id_facultad)
 );
 
-CREATE TYPE estado_resena AS ENUM ('pendiente', 'publicada', 'rechazada', 'eliminada');
+CREATE TYPE estado_resena AS ENUM ('publicada', 'rechazada', 'eliminada');
 
 CREATE TABLE resena (
   id_resena       SERIAL PRIMARY KEY,
@@ -30,7 +29,7 @@ CREATE TABLE resena (
   comentario      TEXT,
   autor           VARCHAR(45),
   publicacion     DATE NOT NULL DEFAULT CURRENT_DATE,
-  estado          estado_resena NOT NULL DEFAULT 'pendiente'
+  estado          estado_resena NOT NULL DEFAULT 'publicada'
 );
 
 CREATE INDEX idx_resena_cafeteria_estado ON resena (id_cafeteria, estado);

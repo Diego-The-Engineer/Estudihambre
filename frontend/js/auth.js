@@ -1,4 +1,4 @@
-// Login / registro y estado de sesión en la cabecera
+// Login y/o registro y estado de sesión en la cabecera
 import { api } from "./api.js";
 import { $, escapar } from "./ui.js";
 import { getSesion, guardarSesion, cerrarSesion } from "./session.js";
@@ -18,7 +18,7 @@ function cambiarModo(nuevo) {
   const registro = nuevo === "registro";
   document.querySelectorAll(".solo-registro").forEach(campo => {
     campo.hidden = !registro;
-    campo.querySelector("input, select").disabled = !registro; // los deshabilitados no se validan
+    campo.querySelector("input, select").disabled = !registro; 
   });
   document.querySelectorAll(".solo-login").forEach(campo => {
     campo.hidden = registro;

@@ -113,7 +113,7 @@
       <h2 id="tituloAuth">Iniciar sesión</h2>
       <div class="campo">
         <label for="authMatricula">Matrícula:</label>
-        <input id="authMatricula" name="matricula" inputmode="numeric" pattern="\d{5,9}" title="Solo números (5 a 9 dígitos)" required>
+        <input id="authMatricula" name="matricula" inputmode="numeric" pattern="\d{5,10}" title="Solo números (5 a 10 dígitos)" required>
       </div>
       <div class="campo solo-registro">
         <label for="authNombre">Nombre:</label>
@@ -122,10 +122,6 @@
       <div class="campo">
         <label for="authFacultad">Facultad:</label>
         <select id="authFacultad" name="facultad" required></select>
-      </div>
-      <div class="campo solo-login">
-        <label for="authClave">Clave de administrador (solo admins):</label>
-        <input id="authClave" name="clave" type="password" autocomplete="off">
       </div>
       <p class="error" id="errorAuth"></p>
       <button class="boton" type="submit">Continuar</button>

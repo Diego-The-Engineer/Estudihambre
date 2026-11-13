@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "glin-profanity": "^4.0.1",
+    "leo-profanity": "^1.9.0",
+    "obscenity": "^0.4.6"
+  }
+}

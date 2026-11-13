@@ -1,4 +1,3 @@
-// Punto de entrada: conecta los módulos
 import { api } from "./api.js";
 import { $, opcionesFacultades } from "./ui.js";
 import { initAuth } from "./auth.js";
@@ -26,5 +25,5 @@ async function iniciar() {
       '<div class="vacio"><h3>No pudimos conectar con el servidor</h3><p>Si es la primera visita del día, Render puede tardar ~1 minuto en despertar. Recarga la página.</p></div>';
   }
 }
-
+//Carga, inicia y hace el renderizado de los datos en la pagina
 iniciar();

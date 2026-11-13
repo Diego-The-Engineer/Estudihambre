@@ -1,5 +1,7 @@
 const jwt = require("jsonwebtoken");
 
+
+//verifica que el token generado sea el mismo que la variable de entorno JWT_SECRET
 function leerToken(req) {
   try {
     const token = (req.headers.authorization || "").replace("Bearer ", "");
@@ -9,22 +11,19 @@ function leerToken(req) {
   }
 }
 
-// Exige sesión iniciada
+// exige sesión iniciada
 function requireAuth(req, res, next) {
   req.user = leerToken(req);
   if (!req.user) return res.status(401).json({ error: "Inicia sesión para continuar" });
   next();
 }
 
-// Si hay sesión llena req.user; si no, sigue como visitante
+// si hay sesión llena req.user; si no, sigue como visitante
 function authOpcional(req, _res, next) {
   req.user = leerToken(req);
   next();
 }
 
-function requireAdmin(req, res, next) {
-  if (!req.user?.esAdmin) return res.status(403).json({ error: "Solo administradores" });
-  next();
-}
 
-module.exports = { requireAuth, authOpcional, requireAdmin };
+//exporta las funiones 
+module.exports = { requireAuth, authOpcional };

@@ -1,6 +1,7 @@
 import { API_URL } from "./config.js";
 import { getSesion, cerrarSesion } from "./session.js";
 
+//Hace una peticion del token para hacer una sesion y verificar si el tiempo de la sesion es valida o ya expiró
 async function peticion(ruta, { method = "GET", body } = {}) {
   const sesion = getSesion();
   const res = await fetch(API_URL + ruta, {

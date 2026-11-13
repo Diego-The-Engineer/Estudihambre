@@ -3,15 +3,17 @@ const jwt = require("jsonwebtoken");
 const pool = require("../db");
 const { requireAuth } = require("../middleware/auth");
 
+
+//se genera el token del usuario para el login, checa la base de datos para confirmar las credenciales, la duracion del token dura 7 dias
 function sesion(u) {
   const usuario = { matricula: u.matricula, nombre: u.nombre, esAdmin: u.es_admin };
   const token = jwt.sign(usuario, process.env.JWT_SECRET, { expiresIn: "7d" });
   return { token, usuario };
 }
-
+//se inserta en la base de datos de estudiantes un nuevo estudiante, no sin antes, checar si los datos insertados son correctos
 router.post("/registro", async (req, res) => {
   const { matricula, nombre, facultad } = req.body;
-  if (!/^\d{5,9}$/.test(String(matricula)) || !nombre?.trim() || !facultad) {
+  if (!/^\d{5,10}$/.test(String(matricula)) || !nombre?.trim() || !facultad) {
     return res.status(400).json({ error: "Datos inválidos" });
   }
   const fac = await pool.query("SELECT id_facultad FROM facultad WHERE codigo = $1", [facultad]);
@@ -32,7 +34,7 @@ router.post("/registro", async (req, res) => {
 
 // Login con matrícula + facultad. Las cuentas de administrador además exigen ADMIN_PASSWORD.
 router.post("/login", async (req, res) => {
-  const { matricula, facultad, clave } = req.body;
+  const { matricula, facultad } = req.body;
   const { rows } = await pool.query(
     `SELECT e.matricula, e.nombre, e.es_admin
      FROM estudiante e JOIN facultad f ON f.id_facultad = e.id_facultad
@@ -41,12 +43,11 @@ router.post("/login", async (req, res) => {
   );
   const u = rows[0];
   if (!u) return res.status(401).json({ error: "Matrícula o facultad incorrecta" });
-  if (u.es_admin && (!process.env.ADMIN_PASSWORD || clave !== process.env.ADMIN_PASSWORD)) {
-    return res.status(401).json({ error: "Clave de administrador incorrecta" });
-  }
   res.json(sesion(u));
 });
 
+
+//Extraer los datos del estudiante
 router.get("/me", requireAuth, (req, res) => {
   const { matricula, nombre, esAdmin } = req.user;
   res.json({ matricula, nombre, esAdmin });
