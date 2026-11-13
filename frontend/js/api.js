@@ -31,7 +31,5 @@ export const api = {
   crearResena: datos => peticion("/resenas", { method: "POST", body: datos }),
   eliminarResena: id => peticion(`/resenas/${id}`, { method: "DELETE" }),
   restaurarResena: id => peticion(`/resenas/${id}/restaurar`, { method: "POST" }),
-  pendientes: () => peticion("/resenas/pendientes"),
-  publicarSiguiente: () => peticion("/resenas/pendientes/publicar-siguiente", { method: "POST" }),
-  descartarSiguiente: () => peticion("/resenas/pendientes/descartar-siguiente", { method: "POST" })
+  pendientes: () => peticion("/resenas/pendientes")
 };

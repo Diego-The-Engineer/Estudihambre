@@ -31,8 +31,6 @@ export function initResenas(refrescar) {
   });
 
   $("btnTodas").addEventListener("click", () => { cafeteriaFiltro = null; alCambiar(); });
-  $("btnPublicar").addEventListener("click", () => accion(() => api.publicarSiguiente()));
-  $("btnDescartar").addEventListener("click", () => accion(() => api.descartarSiguiente()));
 }
 
 export async function verResenas(cafeteriaId) {
