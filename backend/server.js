@@ -3,7 +3,7 @@ const express = require("express");
 const cors = require("cors");
 
 const app = express();
-
+//se conecta con todas las funciones de la ruta /routes 
 const origen = (process.env.FRONTEND_URL || "").replace(/\/+$/, "");
 app.use(cors({ origin: origen || undefined }));
 app.use(express.json());
